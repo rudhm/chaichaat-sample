@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#F9F7F2" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1a1614" media="(prefers-color-scheme: dark)">
+    <title>Chai Haat - Best Chai in Maihar</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- THEME VARIABLES (Clay & Cream) --- */
+        :root {
+            --bg-cream: #F9F7F2;       /* Oat Milk */
+            --bg-card: #ffffff;
+            --bg-header: rgba(249, 247, 242, 0.98);
+            --text-espresso: #3E322C;  /* Charred Earth */
+            --text-light: #8c7b75;
+            --accent-rust: #B66A50;    /* Terracotta */
+            --highlight-sand: #E6D0C2; /* Soft Sand */
+            --input-bg: #ffffff;
+            --skeleton-1: #ececec;
+            --skeleton-2: #f5f5f5;
+            --shadow-color: rgba(62, 50, 44, 0.05);
+            
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Lato', sans-serif;
+            --header-height: 70px;
+        }
+
+        /* --- DARK THEME OVERRIDES --- */
+        [data-theme="dark"] {
+            --bg-cream: #1a1614;       /* Dark Espresso */
+            --bg-card: #26201d;        /* Darker Card */
+            --bg-header: rgba(26, 22, 20, 0.98);
+            --text-espresso: #eaddd5;  /* Creamy Text */
+            --text-light: #9c918c;
+            --accent-rust: #d97c5f;    /* Brighter Rust */
+            --highlight-sand: #3d3430; /* Dark Borders */
+            --input-bg: #2d2623;
+            --skeleton-1: #2d2623;
+            --skeleton-2: #38302c;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- GLOBAL RESET --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        
+        html { scroll-behavior: smooth; scroll-padding-top: 130px; }
+
+        body {
+            background-color: var(--bg-cream);
+            color: var(--text-espresso);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            background-image: radial-gradient(var(--highlight-sand) 1px, transparent 1px);
+            background-size: 24px 24px;
+            padding-bottom: 120px; /* Extra padding for mobile safe area */
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; transition: color 0.3s; }
+        button { cursor: pointer; border: none; outline: none; user-select: none; }
+        
+        /* --- UTILITIES --- */
+        .container { max-width: 600px; margin: 0 auto; padding: 0 20px; }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-rust);
+            color: var(--bg-cream);
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(182, 106, 80, 0.2);
+            font-size: 0.9rem;
+        }
+        .btn:hover { 
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 6px 12px rgba(182, 106, 80, 0.3);
+            background-color: #a05a43;
+        }
+        .btn:active { transform: scale(0.95); }
+        
+        /* --- ANIMATIONS --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.3); }
+            50% { opacity: 1; transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes steamRise {
+            0% { transform: translateY(0); opacity: 0.8; }
+            50% { opacity: 0.5; }
+            100% { transform: translateY(-5px); opacity: 0; }
+        }
+
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            will-change: transform, opacity;
+        }
+        .reveal-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- HEADER --- */
+        header {
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--bg-header);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--highlight-sand);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            height: var(--header-height);
+            transition: background-color 0.3s;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 900; 
+            color: var(--text-espresso);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        
+        .logo span { color: var(--accent-rust); }
+        
+        .logo svg {
+            width: 28px;
+            height: 28px;
+            fill: none;
+            stroke: var(--accent-rust);
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            overflow: visible;
+        }
+        
+        .logo .steam { transform-origin: center; animation: steamRise 2s infinite ease-out; }
+        .logo .steam:nth-child(3) { animation-delay: 0s; }
+        .logo .steam:nth-child(4) { animation-delay: 0.6s; }
+        .logo .steam:nth-child(5) { animation-delay: 1.2s; }
+
+        /* --- THEME TOGGLE --- */
+        .theme-toggle {
+            background: transparent;
+            color: var(--text-espresso);
+            padding: 8px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s;
+        }
+        .theme-toggle:hover { background-color: var(--highlight-sand); }
+        .theme-toggle svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 2; fill: none; }
+
+        /* --- STICKY PILL NAVIGATION --- */
+        .category-nav {
+            position: sticky;
+            top: var(--header-height);
+            z-index: 90;
+            background: var(--bg-header);
+            padding: 10px 0;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            display: flex;
+            justify-content: flex-start; /* Changed for horizontal scroll feeling */
+            padding-left: 20px; /* Add padding start */
+            padding-right: 20px;
+            gap: 10px;
+            box-shadow: 0 4px 10px var(--shadow-color);
+            margin-bottom: 10px;
+            -ms-overflow-style: none; 
+            scrollbar-width: none; 
+            transition: background-color 0.3s;
+        }
+        .category-nav::-webkit-scrollbar { display: none; }
+
+        .nav-pill {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-light);
+            border: 1px solid var(--highlight-sand);
+            background: var(--bg-card);
+            transition: all 0.2s;
+            transform: scale(0.95);
+            flex-shrink: 0;
+        }
+
+        .nav-pill.active {
+            background-color: var(--accent-rust);
+            color: white; 
+            border-color: var(--accent-rust);
+            box-shadow: 0 4px 8px rgba(182, 106, 80, 0.2);
+            transform: scale(1);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            text-align: center;
+            padding: 25px 0 20px;
+            animation: fadeIn 0.8s ease-out;
+        }
+        .hero h1 { 
+            font-family: var(--font-heading);
+            font-size: 2rem; 
+            margin-bottom: 8px; 
+            line-height: 1.2; 
+            color: var(--text-espresso);
+        }
+        .hero p { 
+            font-size: 0.95rem; 
+            color: var(--text-light);
+            max-width: 500px;
+            margin: 0 auto 20px;
+            padding: 0 10px;
+        }
+        
+        .hero-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            box-shadow: 0 15px 30px var(--shadow-color);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* --- MENU SECTION --- */
+        .menu-section { padding: 10px 0; }
+        
+        .menu-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Tighter gap on mobile */
+        }
+
+        .menu-category-title {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-espresso);
+            margin: 20px 0 10px;
+            padding-left: 10px;
+            border-left: 4px solid var(--accent-rust);
+            display: flex;
+            align-items: center;
+        }
+
+        /* --- MENU ITEM CARDS --- */
+        .menu-item {
+            display: flex;
+            align-items: center;
+            background: var(--bg-card);
+            padding: 12px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid transparent;
+            position: relative;
+        }
+        
+        .menu-item:active { transform: scale(0.98); }
+
+        /* HERO ITEM STYLE (Bestseller) */
+        .menu-item.hero-item {
+            flex-direction: column;
+            padding: 0;
+            overflow: hidden;
+            border: 1px solid rgba(182, 106, 80, 0.15);
+        }
+        .menu-item.hero-item:active { transform: scale(0.99); }
+
+        .menu-item.hero-item .menu-item-img {
+            width: 100%;
+            height: 200px;
+            margin: 0;
+            border-radius: 0;
+        }
+
+        .menu-item.hero-item .item-details {
+            padding: 15px;
+            width: 100%;
+        }
+
+        .badge-bestseller {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--accent-rust);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 6px 14px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 10;
+            animation: bounceIn 1s 0.5s backwards;
+        }
+
+        .menu-item-img {
+            width: 85px; /* Slightly smaller for mobile */
+            height: 85px;
+            border-radius: 12px;
+            object-fit: cover;
+            margin-right: 15px;
+            flex-shrink: 0;
+            background: var(--skeleton-1);
+        }
+        
+        .item-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 0;
+        }
+
+        .item-details .name {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-espresso);
+            margin-bottom: 2px;
+            line-height: 1.2;
+        }
+
+        .item-details .desc {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 4px;
+            line-height: 1.2;
+        }
+
+        .cross-sell {
+            font-size: 0.75rem;
+            color: var(--accent-rust);
+            font-style: italic;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 2px;
+        }
+
+        .item-details .price { 
+            color: var(--text-espresso); 
+            font-weight: 800; 
+            font-size: 1.1rem;
+            margin-top: 2px;
+        }
+        
+        /* STEPPER CONTROLS */
+        .stepper {
+            display: flex;
+            align-items: center;
+            background: var(--bg-card);
+            border: 1px solid var(--accent-rust);
+            border-radius: 8px;
+            overflow: hidden;
+            height: 40px; /* Taller touch target */
+            box-shadow: 0 2px 5px rgba(182, 106, 80, 0.1);
+        }
+
+        .stepper-btn {
+            width: 34px; /* Wider touch target */
+            height: 100%;
+            background: var(--bg-card);
+            color: var(--accent-rust);
+            font-weight: bold;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            user-select: none;
+        }
+        .stepper-btn:active { background: var(--bg-cream); }
+
+        .stepper-val {
+            width: 30px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1rem;
+            color: var(--text-espresso);
+        }
+
+        /* INITIAL ADD BUTTON */
+        .add-btn {
+            background-color: var(--bg-cream);
+            border: 1px solid rgba(182, 106, 80, 0.3);
+            color: var(--accent-rust);
+            width: 85px; /* Wider touch target */
+            height: 40px; /* Taller touch target */
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            transition: all 0.2s;
+            margin-left: 10px;
+            user-select: none;
+        }
+        .add-btn:hover {
+            background-color: var(--accent-rust);
+            color: white;
+            box-shadow: 0 4px 10px rgba(182, 106, 80, 0.3);
+        }
+        .add-btn:active { transform: scale(0.92); }
+
+        /* --- CART FLOATING BUTTON --- */
+        .cart-float {
+            position: fixed;
+            bottom: calc(20px + env(safe-area-inset-bottom)); /* Respect iPhone Home Bar */
+            left: 50%;
+            transform: translateX(-50%) scale(0.9);
+            width: 92%;
+            max-width: 450px;
+            background-color: var(--text-espresso);
+            color: var(--bg-cream);
+            padding: 16px 25px;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(0,0,0, 0.4);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: none;
+            opacity: 0;
+        }
+        .cart-float.visible {
+            display: flex;
+            opacity: 1;
+            transform: translateX(-50%) scale(1);
+        }
+        .cart-float:active { transform: translateX(-50%) scale(0.95); }
+        
+        .cart-info { display: flex; flex-direction: column; }
+        .cart-count { font-size: 0.75rem; opacity: 0.8; letter-spacing: 0.5px; }
+        .cart-total-display { font-size: 1.2rem; font-weight: bold; }
+        .view-cart-txt { font-weight: bold; font-size: 1rem; display: flex; align-items: center; gap: 6px;}
+
+        /* --- CART MODAL --- */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(3px);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: flex-end;
+        }
+        
+        .cart-content {
+            background: var(--bg-card);
+            width: 100%;
+            max-width: 600px;
+            border-radius: 25px 25px 0 0;
+            padding: 30px 25px calc(30px + env(safe-area-inset-bottom));
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.4);
+            animation: slideUp 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            color: var(--text-espresso);
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        
+        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--highlight-sand); flex-shrink: 0; }
+        .cart-items { overflow-y: auto; margin-bottom: 20px; flex-grow: 1; -webkit-overflow-scrolling: touch; }
+        .cart-item-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-size: 1rem; }
+        .cart-total { font-size: 1.3rem; font-weight: 900; display: flex; justify-content: space-between; border-top: 2px dashed var(--highlight-sand); padding-top: 20px; margin-bottom: 25px; color: var(--text-espresso); flex-shrink: 0; }
+        
+        .checkout-btn {
+            width: 100%;
+            background: #25D366;
+            color: white;
+            padding: 16px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+        .checkout-btn:active { transform: scale(0.98); }
+
+        /* --- FEEDBACK SECTION --- */
+        .feedback-section { padding: 30px 0 60px; text-align: center; }
+        .feedback-grid { 
+            display: grid; 
+            grid-template-columns: 1fr; /* Single column on mobile is better for readability */
+            gap: 15px; 
+            margin-bottom: 40px;
+        }
+        @media(min-width: 600px) {
+            .feedback-grid { grid-template-columns: 1fr 1fr; }
+        }
+        
+        .feedback-card {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px var(--shadow-color);
+            text-align: left;
+            border-left: 4px solid var(--accent-rust);
+            transition: transform 0.2s;
+        }
+        .feedback-card:active { transform: scale(0.98); }
+        .stars { color: #FFC107; margin-bottom: 5px; font-size: 1rem; letter-spacing: 2px; }
+        .feedback-text { font-style: italic; color: var(--text-light); margin-bottom: 10px; font-size: 0.95rem; line-height: 1.5; }
+        .feedback-author { font-weight: 700; font-size: 0.85rem; color: var(--text-espresso); text-transform: uppercase; }
+
+        /* --- VISIT SECTION --- */
+        .location-section {
+            background-color: var(--text-espresso);
+            color: var(--bg-cream);
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px var(--shadow-color);
+        }
+        .location-section h2 { color: var(--bg-cream); font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 10px;}
+        .location-section .btn {
+            background-color: var(--bg-cream);
+            color: var(--text-espresso);
+            margin-top: 20px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            border-top: 1px solid var(--highlight-sand);
+            padding-bottom: calc(40px + env(safe-area-inset-bottom));
+        }
+        
+        .form-input {
+            width: 100%; padding: 12px 15px; border-radius: 12px; border: 1px solid var(--highlight-sand); 
+            font-family: var(--font-body); font-size: 16px; /* Prevents zoom on focus on iOS */
+            background: var(--input-bg); color: var(--text-espresso);
+        }
+
+        /* Social Icons Style */
+        .social-icon {
+            color: var(--text-light);
+            transition: transform 0.2s, color 0.2s;
+            display: inline-block;
+            padding: 10px; /* Larger tap target */
+        }
+        .social-icon:active { color: var(--accent-rust); }
+
+        /* Mobile Responsive Specifics */
+        @media (max-width: 400px) {
+            .hero h1 { font-size: 1.8rem; }
+            .menu-item-img { width: 75px; height: 75px; }
+            .add-btn { width: 75px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <!-- Cup Body (Static) -->
+                <path d="M4 17.27v-10.57h16v10.57c0 2.53-2.06 4.63-4.66 4.73h-6.68c-2.6-.1-4.66-2.2-4.66-4.73z"/>
+                <path d="M5 8h14"/>
+                
+                <!-- Animated Steam Lines -->
+                <path class="steam" d="M9 3l-1 3"/>
+                <path class="steam" d="M12 2l-0.5 4"/>
+                <path class="steam" d="M15 3l0.5 3"/>
+            </svg>
+            <span>CHAI</span> HAAT
+        </div>
+        
+        <!-- Theme Toggle Button -->
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Dark Mode">
+            <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+        </button>
+    </header>
+
+    <!-- STICKY PILL NAVIGATION -->
+    <div class="category-nav">
+        <button class="nav-pill active" onclick="scrollToCategory('hot-sips')">Hot Sips</button>
+        <button class="nav-pill" onclick="scrollToCategory('savory-bites')">Savory Bites</button>
+    </div>
+
+    <div class="container">
+
+        <section class="hero">
+            <h1>Great Chai, Cheesy Pizza,<br>and Endless Conversations.</h1>
+            <p>From piping hot Maggi to our signature Masala Chai—this is where friendships are brewed.</p>
+        </section>
+
+        <!-- Hero Image -->
+        <img src="https://images.unsplash.com/photo-1582236895392-a72265003023?q=80&w=1200&auto=format&fit=crop" alt="Chai Haat Shop Exterior" class="hero-img">
+
+        <!-- About Us Section -->
+        <section class="reveal-on-scroll" style="text-align: center; margin-bottom: 40px; padding: 0 10px;">
+            <p style="font-size: 1rem; color: var(--text-espresso); line-height: 1.8; max-width: 550px; margin: 0 auto;">
+                At <strong style="color: var(--accent-rust);">Chai Haat</strong>, we aren't just a tea shop; we are your daily hangout spot. Whether you’re here to bond with old friends over a plate of spicy Maggi, share a loaded Burger with a date, or just find some comfort in a warm cup of Masala Chai, we have a table waiting for you.
+            </p>
+        </section>
+
+        <section id="menu" class="menu-section">
+            
+            <div id="hot-sips" class="menu-category-title">Hot Sips</div>
+            <div class="menu-grid">
+                
+                <!-- HERO CARD: Kulhad Chai -->
+                <div class="menu-item hero-item reveal-on-scroll">
+                    <div class="badge-bestseller">Must Try</div>
+                    <img src="https://images.unsplash.com/photo-1596920566829-d73ad60f6f95?w=600&h=400&fit=crop" class="menu-item-img" alt="Kulhad Chai" loading="lazy">
+                    <div class="item-details">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <div>
+                                <span class="name">Special Kulhad Chai</span>
+                                <div class="desc">Earthly flavor in clay cup</div>
+                                <div class="price">₹15</div>
+                            </div>
+                            <!-- Stepper Container -->
+                            <div id="stepper-kuhlad" class="action-box">
+                                <button class="add-btn" onclick="updateItem('Special Kulhad Chai', 15, 1)">ADD</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- MASALA CHAI -->
+                <div class="menu-item reveal-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1576092768241-dec231844f74?w=200&h=200&fit=crop" class="menu-item-img" alt="Masala Chai" loading="lazy">
+                    <div class="item-details">
+                        <span class="name">Masala Chai</span>
+                        <span class="desc">Ginger & Cardamom blend</span>
+                        <!-- Cross Sell -->
+                        <div class="cross-sell">⚡ Pairs with Veg Sandwich</div>
+                        <span class="price">₹10</span>
+                    </div>
+                    <div id="stepper-masala" class="action-box">
+                        <button class="add-btn" onclick="updateItem('Masala Chai', 10, 1)">ADD</button>
+                    </div>
+                </div>
+                
+                <!-- COFFEE -->
+                <div class="menu-item reveal-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=200&h=200&fit=crop" class="menu-item-img" alt="Coffee" loading="lazy">
+                    <div class="item-details">
+                        <span class="name">Hot Coffee</span>
+                        <span class="desc">Strong & Frothy</span>
+                        <div class="cross-sell">⚡ Best with Cheese Burger</div>
+                        <span class="price">₹20</span>
+                    </div>
+                    <div id="stepper-coffee" class="action-box">
+                        <button class="add-btn" onclick="updateItem('Hot Coffee', 20, 1)">ADD</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="savory-bites" class="menu-category-title">Savory Bites</div>
+            <div class="menu-grid">
+
+                <!-- MAGGIE -->
+                <div class="menu-item reveal-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?w=200&h=200&fit=crop" class="menu-item-img" alt="Maggie" loading="lazy">
+                    <div class="item-details">
+                        <span class="name">Veg Maggie</span>
+                        <span class="desc">Spicy masala noodles</span>
+                        <span class="price">₹40</span>
+                    </div>
+                    <div id="stepper-maggie" class="action-box">
+                        <button class="add-btn" onclick="updateItem('Veg Maggie', 40, 1)">ADD</button>
+                    </div>
+                </div>
+                
+                <!-- SANDWICH -->
+                <div class="menu-item reveal-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=200&h=200&fit=crop" class="menu-item-img" alt="Sandwich" loading="lazy">
+                    <div class="item-details">
+                        <span class="name">Veg Sandwich</span>
+                        <span class="desc">Grilled with cucumber & tomato</span>
+                        <span class="price">₹50</span>
+                    </div>
+                    <div id="stepper-sandwich" class="action-box">
+                        <button class="add-btn" onclick="updateItem('Veg Sandwich', 50, 1)">ADD</button>
+                    </div>
+                </div>
+                
+                <!-- BURGER -->
+                <div class="menu-item reveal-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=200&h=200&fit=crop" class="menu-item-img" alt="Burger" loading="lazy">
+                    <div class="item-details">
+                        <span class="name">Cheese Burger</span>
+                        <span class="desc">Crispy patty with cheese slice</span>
+                        <span class="price">₹70</span>
+                    </div>
+                    <div id="stepper-burger" class="action-box">
+                        <button class="add-btn" onclick="updateItem('Cheese Burger', 70, 1)">ADD</button>
+                    </div>
+                </div>
+                
+                <!-- PIZZA -->
+                <div class="menu-item reveal-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=200&h=200&fit=crop" class="menu-item-img" alt="Pizza" loading="lazy">
+                    <div class="item-details">
+                        <span class="name">Farmhouse Pizza</span>
+                        <span class="desc">Loaded with fresh veggies</span>
+                        <span class="price">₹120</span>
+                    </div>
+                    <div id="stepper-pizza" class="action-box">
+                        <button class="add-btn" onclick="updateItem('Farmhouse Pizza', 120, 1)">ADD</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="feedback-section">
+            <h2 style="font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 25px;">Happy Sips</h2>
+            <div class="feedback-grid">
+                <!-- Review 1 -->
+                <div class="feedback-card reveal-on-scroll">
+                    <div class="stars">★★★★★</div>
+                    <p class="feedback-text">"Best Chai in Maihar! The Kulhad chai flavor is authentic and the place has such a chill vibe."</p>
+                    <div class="feedback-author">Rahul Singh</div>
+                </div>
+                <!-- Review 2 -->
+                <div class="feedback-card reveal-on-scroll">
+                    <div class="stars">★★★★☆</div>
+                    <p class="feedback-text">"My go-to spot for evening snacks. The cheese burger is amazing for the price. Recommended!"</p>
+                    <div class="feedback-author">Priya K.</div>
+                </div>
+                <!-- Review 3 -->
+                <div class="feedback-card reveal-on-scroll">
+                    <div class="stars">★★★★★</div>
+                    <p class="feedback-text">"The Farmhouse Pizza is loaded! unexpected for a chai place. Love the late night vibes."</p>
+                    <div class="feedback-author">Rohan D.</div>
+                </div>
+                <!-- Review 4 -->
+                <div class="feedback-card reveal-on-scroll">
+                    <div class="stars">★★★★★</div>
+                    <p class="feedback-text">"Cleanest place in town. Staff is super polite. Masala chai reminds me of home."</p>
+                    <div class="feedback-author">Anjali S.</div>
+                </div>
+            </div>
+
+            <!-- PUBLIC REVIEW CTA -->
+            <div class="reveal-on-scroll" style="margin-top: 30px; background: var(--bg-card); padding: 30px 20px; border-radius: 20px; box-shadow: 0 10px 25px var(--shadow-color);">
+                <h3 style="font-family: var(--font-heading); color: var(--text-espresso); font-size: 1.5rem; margin-bottom: 5px;">Spread the Love.</h3>
+                <p style="color: var(--text-light); margin-bottom: 20px; font-size: 0.9rem;">Did you enjoy your visit? Help others find us.</p>
+                <a href="https://www.google.com/maps/search/?api=1&query=24.279624457941622,80.76537471473713" target="_blank" class="btn" style="width: 100%;">Rate us on Google</a>
+            </div>
+
+            <!-- PRIVATE FEEDBACK CARD -->
+            <div class="reveal-on-scroll" style="margin-top: 30px; background: var(--bg-cream); padding: 30px 20px; border-radius: 20px; box-shadow: 0 4px 15px var(--shadow-color); border: 1px dashed var(--accent-rust);">
+                <h3 style="font-family: var(--font-heading); color: var(--accent-rust); font-size: 1.8rem; margin-bottom: 5px;">Spill the Tea ☕</h3>
+                <p style="color: var(--text-light); margin-bottom: 20px; font-size: 0.9rem;">How was your cup today? Let us know what you loved or what we can fix.</p>
+                
+                <form id="feedbackForm" onsubmit="sendFeedback(event)" style="display: flex; flex-direction: column; gap: 15px; text-align: left;">
+                    <input type="text" id="fb-name" class="form-input" placeholder="Name (Optional)">
+                    <input type="email" id="fb-email" class="form-input" placeholder="Email (Optional - if you want a reply)">
+                    <textarea id="fb-msg" class="form-input" rows="3" placeholder="Your Thoughts..." style="resize: none;" required></textarea>
+                    <button type="submit" class="btn" style="width: 100%; border: none; cursor: pointer;">Send Private Feedback</button>
+                </form>
+            </div>
+
+        </section>
+
+        <section id="visit" class="location-section reveal-on-scroll">
+            <h2>Visit Us</h2>
+            <p style="opacity: 0.8; margin-bottom: 5px;">Open Daily: 9:00 AM - 9:00 PM</p>
+            <p style="font-size: 0.9rem; color: var(--highlight-sand); margin-bottom: 20px;">Near Govt Vivekanand College</p>
+            
+            <!-- Interactive Map Embed -->
+            <div style="width: 100%; height: 300px; border-radius: 16px; overflow: hidden; margin-bottom: 25px; box-shadow: 0 8px 20px rgba(0,0,0,0.2); border: 2px solid rgba(255,255,255,0.1);">
+                <iframe 
+                    width="100%" 
+                    height="100%" 
+                    frameborder="0" 
+                    scrolling="no" 
+                    marginheight="0" 
+                    marginwidth="0" 
+                    src="https://maps.google.com/maps?q=24.279624,80.765374&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                    title="Chai Haat Location"
+                    style="filter: grayscale(0.2) contrast(1.1);">
+                </iframe>
+            </div>
+
+            <a href="https://www.google.com/maps/search/?api=1&query=24.279624,80.765374" target="_blank" class="btn">
+                📍 Open in Google Maps
+            </a>
+        </section>
+
+    </div> 
+
+    <footer>
+        <p>Maihar, Madhya Pradesh</p>
+        <p style="margin-top: 10px;">
+            <a href="https://wa.me/919144475551" style="color: var(--accent-rust); font-weight: bold;">Have a suggestion? WhatsApp us</a>
+        </p>
+
+        <!-- Social Icons -->
+        <div style="display: flex; justify-content: center; gap: 25px; margin: 25px 0 10px;">
+            <a href="https://instagram.com/chaihaat" target="_blank" class="social-icon" aria-label="Instagram">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+            <a href="https://youtube.com/@chaihaat" target="_blank" class="social-icon" aria-label="YouTube">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+            </a>
+        </div>
+
+        <br>
+        <small>© 2024 Chai Haat. Freshly Brewed.</small>
+    </footer>
+
+    <!-- CART FLOATING BUTTON -->
+    <div id="cart-float" class="cart-float" onclick="toggleCart()">
+        <div class="cart-info">
+            <span class="cart-count" id="cart-count-txt">0 ITEMS</span>
+            <span class="cart-total-display" id="cart-total-badge">₹0</span>
+        </div>
+        <div class="view-cart-txt">
+            View Cart <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12 5l7 7-7 7"/></svg>
+        </div>
+    </div>
+
+    <!-- CART MODAL -->
+    <div id="cart-modal" class="cart-modal" onclick="closeCartOnOutside(event)">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h3 style="font-family: var(--font-heading); font-size: 1.5rem; color: var(--text-espresso);">Your Order</h3>
+                <button onclick="toggleCart()" style="font-size: 2rem; line-height: 1; color: var(--text-light); background:none; padding: 10px;">&times;</button>
+            </div>
+            
+            <div id="cart-items-container" class="cart-items">
+                <!-- Items will be injected here -->
+            </div>
+
+            <div class="cart-total">
+                <span>Total Bill</span>
+                <span id="cart-final-total">₹0</span>
+            </div>
+            
+            <button class="checkout-btn" onclick="checkoutWhatsApp()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                Place Order on WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let cart = [];
+        const PHONE_NUMBER = "919144475551";
+
+        // Initialize Theme Logic
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            const target = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', target);
+            localStorage.setItem('theme', target);
+            updateThemeIcon(target);
+        }
+
+        function updateThemeIcon(theme) {
+            const moon = document.getElementById('icon-moon');
+            const sun = document.getElementById('icon-sun');
+            if (theme === 'dark') {
+                moon.style.display = 'none';
+                sun.style.display = 'block';
+            } else {
+                moon.style.display = 'block';
+                sun.style.display = 'none';
+            }
+        }
+
+        // Check LocalStorage on load
+        (function() {
+            const saved = localStorage.getItem('theme');
+            if (saved === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+
+        // Map Item names to unique IDs for DOM manipulation
+        const itemMap = {
+            'Special Kulhad Chai': 'stepper-kuhlad',
+            'Masala Chai': 'stepper-masala',
+            'Hot Coffee': 'stepper-coffee',
+            'Veg Maggie': 'stepper-maggie',
+            'Veg Sandwich': 'stepper-sandwich',
+            'Cheese Burger': 'stepper-burger',
+            'Farmhouse Pizza': 'stepper-pizza'
+        };
+
+        function scrollToCategory(id) {
+            const el = document.getElementById(id);
+            const headerOffset = 80;
+            const elementPosition = el.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
+            
+            // Update pills
+            document.querySelectorAll('.nav-pill').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[onclick="scrollToCategory('${id}')"]`).classList.add('active');
+        }
+
+        // --- CORE CART FUNCTION ---
+        function updateItem(name, price, change) {
+            let item = cart.find(i => i.name === name);
+            
+            if (!item) {
+                // If adding for the first time
+                if (change > 0) {
+                    cart.push({ name, price, qty: 1 });
+                }
+            } else {
+                // Update quantity
+                item.qty += change;
+                if (item.qty <= 0) {
+                    cart = cart.filter(i => i.name !== name);
+                }
+            }
+            
+            updateCartUI(); // Updates Float Button & Modal
+            updateMenuUI(); // Updates the Stepper Controls on the main menu
+        }
+
+        function updateMenuUI() {
+            // Loop through all items and update their specific DOM elements
+            for (const [name, domId] of Object.entries(itemMap)) {
+                const container = document.getElementById(domId);
+                const item = cart.find(i => i.name === name);
+                
+                if (item) {
+                    // Item exists in cart -> Show Stepper
+                    container.innerHTML = `
+                        <div class="stepper">
+                            <button class="stepper-btn" onclick="updateItem('${name}', ${item.price}, -1)">−</button>
+                            <div class="stepper-val">${item.qty}</div>
+                            <button class="stepper-btn" onclick="updateItem('${name}', ${item.price}, 1)">+</button>
+                        </div>
+                    `;
+                } else {
+                    // Item not in cart -> Show ADD Button
+                    let price = 0;
+                    if(name.includes('Kulhad')) price = 15;
+                    else if(name.includes('Masala')) price = 10;
+                    else if(name.includes('Coffee')) price = 20;
+                    else if(name.includes('Maggie')) price = 40;
+                    else if(name.includes('Sandwich')) price = 50;
+                    else if(name.includes('Burger')) price = 70;
+                    else if(name.includes('Pizza')) price = 120;
+
+                    container.innerHTML = `<button class="add-btn" onclick="updateItem('${name}', ${price}, 1)">ADD</button>`;
+                }
+            }
+        }
+
+        function updateCartUI() {
+            const floatBtn = document.getElementById('cart-float');
+            const totalBadge = document.getElementById('cart-total-badge');
+            const countTxt = document.getElementById('cart-count-txt');
+            const itemsContainer = document.getElementById('cart-items-container');
+            const finalTotalEl = document.getElementById('cart-final-total');
+
+            // Calculate Total & Count
+            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const count = cart.reduce((sum, item) => sum + item.qty, 0);
+            
+            // Update Float Button
+            if (cart.length > 0) {
+                floatBtn.classList.add('visible');
+                totalBadge.innerText = "₹" + total;
+                countTxt.innerText = count + (count === 1 ? " ITEM" : " ITEMS");
+            } else {
+                floatBtn.classList.remove('visible');
+            }
+
+            // Update Modal Content
+            if (cart.length === 0) {
+                itemsContainer.innerHTML = '<div style="text-align: center; color: var(--text-light); padding: 40px 0;"><p>Your cart is empty.</p><small>Add some yummy food!</small></div>';
+                finalTotalEl.innerText = "₹0";
+                
+                // If modal is open and cart becomes empty, close it
+                if(document.getElementById('cart-modal').style.display === "flex") toggleCart();
+                return;
+            }
+
+            let html = '';
+            cart.forEach((item) => {
+                html += `
+                    <div class="cart-item-row">
+                        <div>
+                            <div style="font-weight:bold; color:var(--text-espresso);">${item.name}</div>
+                            <div style="font-size:0.85rem; color:var(--text-light);">₹${item.price} each</div>
+                        </div>
+                        <div class="cart-qty-ctrl">
+                            <button onclick="updateItem('${item.name}', ${item.price}, -1)" style="color:var(--accent-rust); font-weight:bold; font-size:1.2rem; padding:0 5px; background:none; border:none;">−</button>
+                            <span style="font-weight:bold; width:20px; text-align:center;">${item.qty}</span>
+                            <button onclick="updateItem('${item.name}', ${item.price}, 1)" style="color:var(--accent-rust); font-weight:bold; font-size:1.2rem; padding:0 5px; background:none; border:none;">+</button>
+                        </div>
+                        <div style="font-weight:bold; min-width:60px; text-align:right;">
+                            ₹${item.price * item.qty} 
+                        </div>
+                    </div>
+                `;
+            });
+            itemsContainer.innerHTML = html;
+            finalTotalEl.innerText = "₹" + total;
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            const floatBtn = document.getElementById('cart-float');
+            
+            if (modal.style.display === "flex") {
+                modal.style.display = "none";
+                if(cart.length > 0) floatBtn.style.display = "flex"; 
+            } else {
+                if(cart.length === 0) return;
+                modal.style.display = "flex";
+                floatBtn.style.display = "none";
+            }
+        }
+
+        function closeCartOnOutside(event) {
+            if (event.target.id === 'cart-modal') {
+                toggleCart();
+            }
+        }
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) return;
+
+            let message = "Hello Chai Haat, I would like to place an order:%0A%0A";
+            let total = 0;
+
+            cart.forEach(item => {
+                message += `▪ ${item.name} x ${item.qty} (₹${item.price * item.qty})%0A`;
+                total += item.price * item.qty;
+            });
+
+            message += `%0A*Total Bill: ₹${total}*`;
+
+            window.open(`https://wa.me/${PHONE_NUMBER}?text=${message}`, '_blank');
+        }
+
+        function sendFeedback(e) {
+            e.preventDefault();
+            const name = document.getElementById('fb-name').value || 'Anonymous';
+            const email = document.getElementById('fb-email').value || 'Not provided';
+            const msg = document.getElementById('fb-msg').value;
+            const text = `*New Private Feedback (Spill the Tea)*%0A%0A*Name:* ${name}%0A*Email:* ${email}%0A*Thoughts:* ${msg}`;
+            window.open(`https://wa.me/${PHONE_NUMBER}?text=${text}`, '_blank');
+            document.getElementById('feedbackForm').reset();
+        }
+        
+        // Ensure icon state is correct on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const saved = localStorage.getItem('theme');
+            updateThemeIcon(saved === 'dark' ? 'dark' : 'light');
+            
+            // Intersection Observer for Scroll Animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+        });
+
+        // Scroll Spy for Pills
+        window.addEventListener('scroll', () => {
+            const hotSips = document.getElementById('hot-sips');
+            const savory = document.getElementById('savory-bites');
+            const scrollPos = window.scrollY + 150; 
+
+            if (scrollPos >= savory.offsetTop) {
+                document.querySelectorAll('.nav-pill').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.nav-pill')[1].classList.add('active');
+            } else if (scrollPos >= hotSips.offsetTop) {
+                document.querySelectorAll('.nav-pill').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.nav-pill')[0].classList.add('active');
+            }
+        });
+    </script>
+
+</body>
+</html>
