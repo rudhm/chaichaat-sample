@@ -605,6 +605,61 @@
         }
         .checkout-btn:active { transform: scale(0.98); }
 
+        /* --- DEMO PAYMENT METHODS --- */
+        .payment-section {
+            margin-top: 20px;
+            padding: 18px 0 0;
+            border-top: 1px solid var(--border-soft);
+            border-right: 0;
+            border-bottom: 0;
+            border-left: 0;
+            min-width: 0;
+        }
+        .payment-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .payment-heading h4 { font-size: 1rem; color: var(--text-primary); }
+        .demo-label {
+            color: var(--accent-main);
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .payment-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .payment-option { position: relative; }
+        .payment-option input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .payment-option label {
+            display: flex;
+            min-height: 76px;
+            flex-direction: column;
+            justify-content: center;
+            gap: 2px;
+            padding: 12px;
+            border: 1px solid var(--border-soft);
+            border-radius: 14px;
+            background: var(--bg-body);
+            cursor: pointer;
+            transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .payment-option input:checked + label {
+            border-color: var(--accent-main);
+            background: var(--accent-light);
+            box-shadow: inset 0 0 0 1px var(--accent-main);
+        }
+        .payment-option input:focus-visible + label { outline: 3px solid rgba(192, 108, 84, 0.35); outline-offset: 2px; }
+        .payment-option-title { font-size: 0.9rem; font-weight: 700; color: var(--text-primary); }
+        .payment-option-detail { font-size: 0.72rem; line-height: 1.3; color: var(--text-secondary); }
+        .payment-note { margin-top: 10px; font-size: 0.75rem; color: var(--text-secondary); }
+
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -879,6 +934,32 @@
                     <span>Total Bill</span>
                     <span id="cart-final-total">₹0</span>
                 </div>
+
+                <fieldset class="payment-section">
+                    <div class="payment-heading">
+                        <h4>Payment method</h4>
+                        <span class="demo-label">Demo only</span>
+                    </div>
+                    <div class="payment-options">
+                        <div class="payment-option">
+                            <input type="radio" id="payment-upi" name="payment-method" value="UPI (GPay, PhonePe, Paytm or BHIM)" checked>
+                            <label for="payment-upi"><span class="payment-option-title">UPI</span><span class="payment-option-detail">GPay, PhonePe, Paytm, BHIM</span></label>
+                        </div>
+                        <div class="payment-option">
+                            <input type="radio" id="payment-card" name="payment-method" value="Credit / Debit Card">
+                            <label for="payment-card"><span class="payment-option-title">Card</span><span class="payment-option-detail">Credit or debit card</span></label>
+                        </div>
+                        <div class="payment-option">
+                            <input type="radio" id="payment-netbanking" name="payment-method" value="Net Banking">
+                            <label for="payment-netbanking"><span class="payment-option-title">Net Banking</span><span class="payment-option-detail">Pay from your bank account</span></label>
+                        </div>
+                        <div class="payment-option">
+                            <input type="radio" id="payment-cash" name="payment-method" value="Pay at Cafe / Cash">
+                            <label for="payment-cash"><span class="payment-option-title">Pay at Cafe</span><span class="payment-option-detail">Cash or pay on pickup</span></label>
+                        </div>
+                    </div>
+                    <p class="payment-note">This demo only records your preference; no payment is collected here.</p>
+                </fieldset>
                 
                 <button type="button" class="checkout-btn" onclick="checkoutWhatsApp()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
@@ -1098,6 +1179,9 @@
             const items = Object.entries(cart);
             if (items.length === 0) return;
 
+            const selectedPayment = document.querySelector('input[name="payment-method"]:checked');
+            const paymentMethod = selectedPayment ? selectedPayment.value : 'UPI';
+
             let message = "Hello Chai Haat Cafe, I would like to place an order:%0A%0A";
             let total = 0;
 
@@ -1108,6 +1192,7 @@
             });
 
             message += `%0A*Total Bill: ₹${total}*`;
+            message += `%0APayment preference: ${paymentMethod}`;
 
             window.open(`https://wa.me/${PHONE_NUMBER}?text=${message}`, '_blank');
         }
