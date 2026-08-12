@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#F9F7F2" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#1a1614" media="(prefers-color-scheme: dark)">
-    <meta name="description" content="Chai Haat Cafe - The best place in Sehore for Masala Chai, Coffee, and Snacks. Order via WhatsApp.">
-    <title>Chai Haat Cafe - Best Chai in Sehore</title>
+    <meta name="description" content="Laziz Pizza - Delicious Pizzas, Burgers, Coffee, Snacks & More. Order via WhatsApp.">
+    <title>Laziz Pizza - Best Pizza & Cafe</title>
     
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%23B66A50'/><path d='M30 65h40l-5 15H35z' fill='%23F9F7F2'/><path d='M25 35h50v30H25z' fill='%23F9F7F2'/><path d='M75 40h10c2.76 0 5 2.24 5 5v10c0 2.76-2.24 5-5 5h-10' fill='none' stroke='%23F9F7F2' stroke-width='5'/></svg>" type="image/svg+xml">
     
@@ -364,7 +366,6 @@
 
         .menu-item-img {
             width: 100%; 
-            /* Fix 4.2: Reduce layout shifts */
             aspect-ratio: 1 / 1; 
             object-fit: cover;
             margin: 0;
@@ -515,7 +516,6 @@
         }
 
         /* --- CART FLOATING BUTTON --- */
-        /* Fix 2.2: Animation approach */
         .cart-float {
             position: fixed;
             bottom: calc(24px + env(safe-area-inset-bottom));
@@ -549,7 +549,6 @@
         
         .cart-float:active { transform: translateX(-50%) scale(0.96); }
         
-        /* Fix 1.1: Missing shake keyframes */
         @keyframes shake {
             0% { transform: translateX(-50%) scale(1); }
             25% { transform: translateX(-52%) scale(1.02); }
@@ -676,7 +675,6 @@
         (function initTheme() {
             const saved = localStorage.getItem('theme') || 'light';
             document.documentElement.setAttribute('data-theme', saved);
-            // Icon update happens in DOMContentLoaded, but attribute is set now
         })();
     </script>
 </head>
@@ -689,9 +687,9 @@
                     <path class="steam-path" d="M155,165 C155,165 125,125 155,90 C170,70 160,45 160,45" />
                     <path class="steam-path" d="M225,165 C225,165 265,125 225,75 C210,55 235,25 235,25" />
                 </svg>
-                <img src="logo.png" alt="Chai Haat Logo" class="logo-img">
+                <img src="logo.png" alt="Laziz Pizza Logo" class="logo-img">
             </div>
-            <div class="logo-text"><span>CHAI</span> HAAT CAFE</div>
+            <div class="logo-text"><span>LAZIZ</span> PIZZA</div>
         </div>
         
         <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Dark Mode">
@@ -712,11 +710,11 @@
             <p>From piping hot Maggi to our signature Masala Chai—this is where friendships are brewed.</p>
         </section>
 
-        <img src="https://images.unsplash.com/photo-1680413002471-965cca788f5b?q=80&w=774&auto=format&fit=crop" alt="Chai Haat Shop Exterior" class="hero-img">
+        <img src="https://images.unsplash.com/photo-1680413002471-965cca788f5b?q=80&w=774&auto=format&fit=crop" alt="Laziz Pizza Shop Exterior" class="hero-img">
 
         <section class="reveal-on-scroll" style="text-align: center; margin-bottom: 40px; padding: 0 10px;">
             <p style="font-size: 1.1rem; color: var(--text-primary); line-height: 1.7; max-width: 600px; margin: 0 auto; font-family: var(--font-body); font-weight: 400;">
-                At <strong style="color: var(--accent-main);">Chai Haat</strong>, we’re your everyday spot for good chai and easy food. Drop in for a quick cup, a shared meal, or a break from the day — there’s always a place for you here.
+                At <strong style="color: var(--accent-main);">Laziz Pizza</strong>, we’re your everyday spot for delicious pizza, good chai, and easy food. Drop in for a quick cup, a shared meal, or a break from the day — there’s always a place for you here.
             </p>
         </section>
 
@@ -835,7 +833,7 @@
         <section class="insta-section reveal-on-scroll">
             <div class="insta-header">
                 <h2 class="insta-title">Daily Vibes</h2>
-                <a href="https://instagram.com/chaihaat_cafe" target="_blank" class="insta-link">@chaihaat_cafe →</a>
+                <a href="https://instagram.com/lazizpizza" target="_blank" class="insta-link">@lazizpizza →</a>
             </div>
 
             <div class="reel-showcase">
@@ -849,16 +847,16 @@
         </section>
 
         <section class="feedback-section">
-            <h2 style="font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 25px; text-align:center;">Happy Sips</h2>
+            <h2 style="font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 25px; text-align:center;">Happy Bites & Sips</h2>
             <div class="feedback-grid">
                 <div class="feedback-card reveal-on-scroll">
                     <div class="stars">★★★★★</div>
-                    <p class="feedback-text">"Best Chai in Sehore! The Kulhad chai flavor is authentic and the place has such a chill vibe."</p>
+                    <p class="feedback-text">"Best Pizza and Chai combo! The Kulhad chai flavor is authentic and the place has such a chill vibe."</p>
                     <div class="feedback-author">Rahul Singh</div>
                 </div>
                 <div class="feedback-card reveal-on-scroll">
                     <div class="stars">★★★★★</div>
-                    <p class="feedback-text">"Cleanest place in town. Staff is super polite. Masala chai reminds me of home."</p>
+                    <p class="feedback-text">"Cleanest place in town. Staff is super polite. Delicious pizza and masala chai!"</p>
                     <div class="feedback-author">Anjali S.</div>
                 </div>
             </div>
@@ -878,7 +876,7 @@
                     marginwidth="0" 
                     loading="lazy"
                     src="https://maps.google.com/maps?q=Sehore%2C%20Madhya%20Pradesh&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                    title="Chai Haat Location"
+                    title="Laziz Pizza Location"
                     style="filter: grayscale(0.2) contrast(1.1);">
                 </iframe>
             </div>
@@ -891,14 +889,14 @@
     </div> 
 
     <footer>
-        <p>Sehore, Madhya Pradesh</p>
-        <p style="margin-top: 8px; opacity: 0.7;">Built on good chai</p>
+        <p>Maihar, Madhya Pradesh</p>
+        <p style="margin-top: 8px; opacity: 0.7;">Built on good pizza & chai</p>
 
         <div class="social-links">
-            <a href="https://instagram.com/chaihaat" target="_blank" class="social-icon" aria-label="Instagram">
+            <a href="https://instagram.com/lazizpizza" target="_blank" class="social-icon" aria-label="Instagram">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
             </a>
-            <a href="https://youtube.com/@chaihaat" target="_blank" class="social-icon" aria-label="YouTube">
+            <a href="https://youtube.com/@lazizpizza" target="_blank" class="social-icon" aria-label="YouTube">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
             </a>
             <a href="https://wa.me/919144475551" target="_blank" class="social-icon" aria-label="WhatsApp">
@@ -906,7 +904,7 @@
             </a>
         </div>
         
-        <small style="opacity: 0.5;">© 2026 Chai Haat Cafe</small>
+        <small style="opacity: 0.5;">© 2026 Laziz Pizza</small>
     </footer>
 
     <div id="cart-float" class="cart-float" onclick="toggleCart()">
@@ -970,7 +968,6 @@
     </div>
 
     <script>
-        // Fix 1.3: Single Source of Truth
         const MENU = {
             'Special Kulhad Chai': 15,
             'Masala Chai': 10,
@@ -981,11 +978,9 @@
             'Farmhouse Pizza': 120
         };
 
-        // Fix 5.2: Cart object maps Name -> Quantity
         let cart = {}; 
         const PHONE_NUMBER = "919144475551";
 
-        // Map Item names to unique IDs for DOM manipulation
         const itemMap = {
             'Special Kulhad Chai': 'stepper-kuhlad',
             'Masala Chai': 'stepper-masala',
@@ -996,7 +991,6 @@
             'Farmhouse Pizza': 'stepper-pizza'
         };
 
-        // Initialize Theme Logic
         function toggleTheme() {
             const html = document.documentElement;
             const current = html.getAttribute('data-theme');
@@ -1018,7 +1012,6 @@
             }
         }
 
-        // Fix 5.1: Global Event Listener (Event Delegation)
         document.addEventListener('click', (e) => {
             const btn = e.target.closest('button');
             if (!btn) return;
@@ -1035,7 +1028,6 @@
             }
         });
 
-        // Fix 2.1: Safer Click Outside Logic
         document.getElementById('cart-modal').addEventListener('click', (e) => {
             if (!e.target.closest('.cart-content')) {
                 toggleCart();
@@ -1053,14 +1045,11 @@
                 behavior: "smooth"
             });
             
-            // Update pills
             document.querySelectorAll('.nav-pill').forEach(btn => btn.classList.remove('active'));
             document.querySelector(`[onclick="scrollToCategory('${id}')"]`).classList.add('active');
         }
 
-        // --- CORE CART FUNCTION ---
         function updateItem(name, change) {
-            // Price lookup from constant
             const price = MENU[name];
             
             if (!cart[name]) cart[name] = 0;
@@ -1073,15 +1062,13 @@
             updateCartUI(); 
             updateMenuUI(name); 
             
-            // Trigger Shake Animation
             const floatBtn = document.getElementById('cart-float');
             floatBtn.classList.remove('shake');
-            void floatBtn.offsetWidth; // Trigger reflow
+            void floatBtn.offsetWidth;
             floatBtn.classList.add('shake');
         }
 
         function updateMenuUI(name) {
-            // Only update specific item if passed, else all (unlikely needed)
             if (!name || !itemMap[name]) return;
             
             const domId = itemMap[name];
@@ -1111,7 +1098,6 @@
             let total = 0;
             let count = 0;
 
-            // Calculate totals using MENU object prices
             for (const [name, qty] of Object.entries(cart)) {
                 total += MENU[name] * qty;
                 count += qty;
@@ -1165,12 +1151,10 @@
             
             if (modal.style.display === "flex") {
                 modal.style.display = "none";
-                // Only show float button if cart has items
                 if(hasItems) floatBtn.classList.add('visible');
             } else {
                 if(!hasItems) return;
                 modal.style.display = "flex";
-                // Hide float button when modal is open to prevent overlay issues
                 floatBtn.classList.remove('visible');
             }
         }
@@ -1182,7 +1166,7 @@
             const selectedPayment = document.querySelector('input[name="payment-method"]:checked');
             const paymentMethod = selectedPayment ? selectedPayment.value : 'UPI';
 
-            let message = "Hello Chai Haat Cafe, I would like to place an order:%0A%0A";
+            let message = "Hello Laziz Pizza, I would like to place an order:%0A%0A";
             let total = 0;
 
             items.forEach(([name, qty]) => {
@@ -1197,13 +1181,10 @@
             window.open(`https://wa.me/${PHONE_NUMBER}?text=${message}`, '_blank');
         }
         
-        // Ensure icon state is correct on load
         window.addEventListener('DOMContentLoaded', () => {
             const saved = localStorage.getItem('theme');
-            // Ensure icon matches the attribute set in the HEAD script
             updateThemeIcon(saved === 'dark' ? 'dark' : 'light');
             
-            // Intersection Observer for Scroll Animations
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -1215,7 +1196,6 @@
             document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
         });
 
-        // Fix 2.3: Throttled Scroll Spy
         let ticking = false;
         window.addEventListener('scroll', () => {
             if (!ticking) {
@@ -1224,7 +1204,7 @@
                     const savory = document.getElementById('savory-bites');
                     const scrollPos = window.scrollY + 180; 
 
-                    if (savory && hotSips) { // Check existence
+                    if (savory && hotSips) {
                         const btns = document.querySelectorAll('.nav-pill');
                         if (scrollPos >= savory.offsetTop) {
                             btns.forEach(btn => btn.classList.remove('active'));
